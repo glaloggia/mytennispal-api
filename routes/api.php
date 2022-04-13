@@ -22,4 +22,4 @@ Route::middleware('auth:sanctum')->group(function(){
 //    return $request->user();
 //});
 
-
+Route::apiResource('venue', \App\Http\Controllers\VenueController::class);
