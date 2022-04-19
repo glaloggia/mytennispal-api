@@ -23,3 +23,5 @@ Route::middleware('auth:sanctum')->group(function(){
 //});
 
 Route::apiResource('venue', \App\Http\Controllers\VenueController::class);
+Route::apiResource('event', \App\Http\Controllers\EventController::class);
+
