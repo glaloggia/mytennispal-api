@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('r_s_v_p_s', function (Blueprint $table) {
+        Schema::create('rsvps', function (Blueprint $table) {
             $table->id();
             $table->foreignId('playerId');
             $table->foreign('playerId')->references('id')->on('users');
-            $table->foreignId('venueId');
-            $table->foreign('venueId')->references('id')->on('events');
+            $table->foreignId('eventId');
+            $table->foreign('eventId')->references('id')->on('events');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_s_v_p_s');
+        Schema::dropIfExists('rsvps');
     }
 };
