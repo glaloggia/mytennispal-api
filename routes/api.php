@@ -26,3 +26,5 @@ Route::apiResource('venue', \App\Http\Controllers\VenueController::class);
 Route::apiResource('event', \App\Http\Controllers\EventController::class);
 Route::apiResource('rsvp', \App\Http\Controllers\RsvpController::class);
 
+Route::post('/auth/register', [\App\Http\Controllers\AuthController::class, 'register']);
+Route::post('/auth/login', [\App\Http\Controllers\AuthController::class, 'login']);
