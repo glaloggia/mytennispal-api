@@ -23,6 +23,7 @@ class MessageController extends Controller
             ->where('userTo', $request->user()->id)
             ->join('users','users.id','=','messages.userFrom')
             ->select('users.name','messages.*')
+            ->orderBy('messages.created_at', 'desc')
             ->get();
 
         return $messages->toArray();
