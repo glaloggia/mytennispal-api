@@ -21,7 +21,7 @@ class EventController extends Controller
             ->whereDate('eventDate','>=', date('Y-m-d'))
             ->join('venues','venueId','=','venues.id')
             ->select('events.*','venues.name as venueName')
-            ->orderBy('events.created_at', 'asc')
+            ->orderBy('events.eventDate', 'asc')
             ->get();
 
         return $messages->toArray();
