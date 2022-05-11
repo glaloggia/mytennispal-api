@@ -20,7 +20,7 @@ class EventController extends Controller
         $messages = DB::table('events')
             ->whereDate('eventDate','>', date('Y-m-d'))
             ->join('venues','venueId','=','venues.id')
-            ->select('events.*','venues.name')
+            ->select('events.*','venues.name as venueName')
             ->orderBy('events.created_at', 'asc')
             ->get();
 
