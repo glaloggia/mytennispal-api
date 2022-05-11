@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
 {
@@ -16,7 +17,16 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-        return Message::where('userTo', $request->user()->id)->paginate();
+        // return Message::where('userTo', $request->user()->id)->paginate();
+//        $messages = Message::where('userTo', $request->user()->id)->get();
+        $messages = DB::table('messages')
+            ->where('userTo', $request->user()->id)
+            ->join('users','users.id','=','messages.userFrom')
+            ->select('users.name','messages.*')
+            ->orderBy('messages.created_at', 'desc')
+            ->get();
+
+        return $messages->toArray();
     }
 
     /**
