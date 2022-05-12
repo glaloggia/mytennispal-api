@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('venueId');
             $table->foreign('venueId')->references('id')->on('venues');
-            $table->dateTime('eventdate');
+            $table->dateTime('eventDate');
             $table->timestamps();
         });
     }

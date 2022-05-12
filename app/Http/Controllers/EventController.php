@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -15,7 +16,15 @@ class EventController extends Controller
      */
     public function index()
     {
-        return Event::all();
+//        return Event::all();
+        $messages = DB::table('events')
+            ->whereDate('eventDate','>=', date('Y-m-d'))
+            ->join('venues','venueId','=','venues.id')
+            ->select('events.*','venues.name as venueName')
+            ->orderBy('events.eventDate', 'asc')
+            ->get();
+
+        return $messages->toArray();
     }
 
     /**
