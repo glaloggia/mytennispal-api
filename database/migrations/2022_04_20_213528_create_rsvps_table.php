@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('eventId');
             $table->foreign('eventId')->references('id')->on('events');
             $table->timestamps();
+            $table->unique(['playerId', 'eventId'], 'player_event_unique_key');
         });
     }
 
