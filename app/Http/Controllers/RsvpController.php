@@ -6,6 +6,8 @@ use App\Models\Rsvp;
 use App\Http\Requests\StoreRsvpRequest;
 use App\Http\Requests\UpdateRsvpRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class RsvpController extends Controller
 {
@@ -68,7 +70,13 @@ class RsvpController extends Controller
     }
 
     public function myBookings(int $parametro){
-        return Rsvp::all()->where('playerId',$parametro);
+//        return Rsvp::all()->where('playerId',$parametro);
+
+        $rsvps = DB::table('rsvps')
+            ->where('playerId', $parametro)
+            ->get();
+
+        return $rsvps->toArray();
     }
 
 }
