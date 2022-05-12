@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rsvp;
 use App\Http\Requests\StoreRsvpRequest;
 use App\Http\Requests\UpdateRsvpRequest;
+use Illuminate\Http\Request;
 
 class RsvpController extends Controller
 {
@@ -13,7 +14,7 @@ class RsvpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return Rsvp::all();
     }
@@ -65,4 +66,9 @@ class RsvpController extends Controller
         $rsvp->delete();
         return response('',204);
     }
+
+    public function myBookings(int $parametro){
+        return Rsvp::all()->where('playerId',$parametro);
+    }
+
 }
