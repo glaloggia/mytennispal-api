@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->group(function(){
 Route::apiResource('venue', \App\Http\Controllers\VenueController::class);
 Route::apiResource('event', \App\Http\Controllers\EventController::class);
 
+Route::get('/attendance/{eventId}', [\App\Http\Controllers\RsvpController::class, 'getMeAttendance']);
 Route::get('/mybookings/{myid}', [\App\Http\Controllers\RsvpController::class, 'myBookings']);
 Route::apiResource('rsvp', \App\Http\Controllers\RsvpController::class);
 

@@ -69,14 +69,24 @@ class RsvpController extends Controller
         return response('',204);
     }
 
-    public function myBookings(int $parametro){
-//        return Rsvp::all()->where('playerId',$parametro);
+    public function myBookings(int $playerId){
 
         $rsvps = DB::table('rsvps')
-            ->where('playerId', $parametro)
+            ->where('playerId', $playerId)
+            ->join('events','events.id','=','rsvps.eventId')
+            ->where('eventDate','>',today())
             ->get();
 
         return $rsvps->toArray();
+    }
+
+    public function getMeAttendance(int $eventId){
+        $attendance = DB::table('rsvps')
+            ->where('rsvps.eventId',$eventId)
+            ->join('users','rsvps.playerId','=','users.id')
+            ->select('users.*')
+            ->get();
+        return $attendance->toArray();
     }
 
 }
