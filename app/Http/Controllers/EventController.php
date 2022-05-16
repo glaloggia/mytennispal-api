@@ -16,9 +16,9 @@ class EventController extends Controller
      */
     public function index()
     {
-//        return Event::all();
         $messages = DB::table('events')
             ->whereDate('eventDate','>=', date('Y-m-d'))
+            ->where('winnerId','=',0)
             ->join('venues','venueId','=','venues.id')
             ->select('events.*','venues.name as venueName')
             ->orderBy('events.eventDate', 'asc')
@@ -73,5 +73,17 @@ class EventController extends Controller
     {
         $event->delete();
         return response('',204);
+    }
+
+    public function ranking(){
+
+        $ranking = DB::table('events')
+            ->join('users', 'winnerId', '=', 'users.id')
+            ->select(DB::raw("ROW_NUMBER() OVER() AS Position"),"users.name",DB::raw("count(events.winnerId) as Wins"))
+            ->groupBy("users.name")
+            ->get();
+
+        return $ranking->toArray();
+
     }
 }
