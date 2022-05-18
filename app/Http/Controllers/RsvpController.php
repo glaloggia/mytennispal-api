@@ -75,6 +75,7 @@ class RsvpController extends Controller
             ->where('playerId', $playerId)
             ->join('events','events.id','=','rsvps.eventId')
             ->where('eventDate','>',today())
+            ->select('rsvps.*')
             ->get();
 
         return $rsvps->toArray();
