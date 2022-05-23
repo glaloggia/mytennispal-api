@@ -12,7 +12,6 @@ class AuthController extends Controller
     //
     public function register(Request $req)
     {
-        //valdiate
         $rules = [
             'name' => 'required|string',
             'email' => 'required|string|unique:users',
@@ -22,7 +21,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        //create new user in users table
+
         $user = User::create([
             'name' => $req->name,
             'email' => $req->email,
@@ -35,15 +34,15 @@ class AuthController extends Controller
 
     public function login(Request $req)
     {
-        // validate inputs
+
         $rules = [
             'email' => 'required',
             'password' => 'required|string'
         ];
         $req->validate($rules);
-        // find user email in users table
+
         $user = User::where('email', $req->email)->first();
-        // if user email found and password is correct
+
         if ($user && Hash::check($req->password, $user->password)) {
             $token = $user->createToken('Personal Access Token')->plainTextToken;
             $response = ['user' => $user, 'token' => $token];

@@ -80,6 +80,7 @@ class EventController extends Controller
         $ranking = DB::table('events')
             ->join('users', 'winnerId', '=', 'users.id')
             ->select(DB::raw("ROW_NUMBER() OVER() AS Position"),"users.name",DB::raw("count(events.winnerId) as Wins"))
+            ->orderBy('Position')
             ->groupBy("users.name")
             ->get();
 
